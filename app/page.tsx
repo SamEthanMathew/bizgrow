@@ -19,8 +19,8 @@ export default function HomePage() {
               href="/leaderboard" 
               className="transition-colors font-medium"
               style={{ color: '#545454' }}
-              onMouseEnter={(e) => e.target.style.color = '#2d892c'}
-              onMouseLeave={(e) => e.target.style.color = '#545454'}
+              onMouseEnter={(e) => (e.target as HTMLElement).style.color = '#2d892c'}
+              onMouseLeave={(e) => (e.target as HTMLElement).style.color = '#545454'}
             >
               Leaderboard
             </Link>
@@ -28,8 +28,8 @@ export default function HomePage() {
               href="/shop" 
               className="transition-colors font-medium"
               style={{ color: '#545454' }}
-              onMouseEnter={(e) => e.target.style.color = '#2d892c'}
-              onMouseLeave={(e) => e.target.style.color = '#545454'}
+              onMouseEnter={(e) => (e.target as HTMLElement).style.color = '#2d892c'}
+              onMouseLeave={(e) => (e.target as HTMLElement).style.color = '#545454'}
             >
               Shop
             </Link>
@@ -37,8 +37,8 @@ export default function HomePage() {
               href="/onboarding" 
               className="text-white px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl font-semibold"
               style={{ background: 'linear-gradient(135deg, #2d892c 0%, #153930 100%)' }}
-              onMouseEnter={(e) => e.target.style.background = 'linear-gradient(135deg, #153930 0%, #2d892c 100%)'}
-              onMouseLeave={(e) => e.target.style.background = 'linear-gradient(135deg, #2d892c 0%, #153930 100%)'}
+              onMouseEnter={(e) => (e.target as HTMLElement).style.background = 'linear-gradient(135deg, #153930 0%, #2d892c 100%)'}
+              onMouseLeave={(e) => (e.target as HTMLElement).style.background = 'linear-gradient(135deg, #2d892c 0%, #153930 100%)'}
             >
               Get Started
             </Link>
@@ -69,8 +69,8 @@ export default function HomePage() {
               href="/onboarding"
               className="text-white px-10 py-5 rounded-2xl text-xl font-bold transition-all duration-300 shadow-2xl transform hover:-translate-y-1"
               style={{ background: 'linear-gradient(135deg, #2d892c 0%, #153930 100%)' }}
-              onMouseEnter={(e) => e.target.style.background = 'linear-gradient(135deg, #153930 0%, #2d892c 100%)'}
-              onMouseLeave={(e) => e.target.style.background = 'linear-gradient(135deg, #2d892c 0%, #153930 100%)'}
+              onMouseEnter={(e) => (e.target as HTMLElement).style.background = 'linear-gradient(135deg, #153930 0%, #2d892c 100%)'}
+              onMouseLeave={(e) => (e.target as HTMLElement).style.background = 'linear-gradient(135deg, #2d892c 0%, #153930 100%)'}
             >
               🚀 Start Your Journey
             </Link>
@@ -78,8 +78,8 @@ export default function HomePage() {
               href="/leaderboard"
               className="px-10 py-5 rounded-2xl text-xl font-bold transition-all duration-300 shadow-lg hover:shadow-xl"
               style={{ border: '2px solid #2d892c', color: '#2d892c', backgroundColor: 'transparent' }}
-              onMouseEnter={(e) => { e.target.style.backgroundColor = '#2d892c'; e.target.style.color = 'white'; }}
-              onMouseLeave={(e) => { e.target.style.backgroundColor = 'transparent'; e.target.style.color = '#2d892c'; }}
+              onMouseEnter={(e) => { (e.target as HTMLElement).style.backgroundColor = '#2d892c'; (e.target as HTMLElement).style.color = 'white'; }}
+              onMouseLeave={(e) => { (e.target as HTMLElement).style.backgroundColor = 'transparent'; (e.target as HTMLElement).style.color = '#2d892c'; }}
             >
               🏆 View Leaderboard
             </Link>
