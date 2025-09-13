@@ -146,10 +146,7 @@ export default function OnboardingPage() {
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                   >
                     <option value="en">English</option>
-                    <option value="hi">Hindi</option>
-                    <option value="bn">Bengali</option>
-                    <option value="te">Telugu</option>
-                    <option value="mr">Marathi</option>
+                    <option value="ch">Chinese (Mandarin)</option>
                   </select>
                 </div>
               </div>
