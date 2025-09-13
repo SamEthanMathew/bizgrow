@@ -66,7 +66,7 @@ export interface UserScore {
 export interface BusinessPlan {
   userId: string;
   sector: string;
-  planText: any; // Will be more specific based on AI response structure
+  planText: Record<string, unknown>; // Will be more specific based on AI response structure
   riskNotes?: string;
   generatedAt: string;
 }

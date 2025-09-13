@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 // Mock quest data - will be replaced with Supabase queries
 const QUESTS = [
@@ -84,7 +84,7 @@ const QUESTS = [
   }
 ];
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     // TODO: Add authentication check
     // TODO: Get user's quest statuses from database

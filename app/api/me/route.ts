@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 // Mock user data - will be replaced with Supabase queries
 const mockUser = {
@@ -17,7 +17,7 @@ const mockUser = {
   createdAt: "2024-01-01T00:00:00Z"
 };
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     // TODO: Add authentication check
     // TODO: Get user data from Supabase

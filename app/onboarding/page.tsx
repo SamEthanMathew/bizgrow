@@ -51,7 +51,7 @@ export default function OnboardingPage() {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome to BizGrow</h1>
-          <p className="text-gray-600">Let's set up your business profile</p>
+          <p className="text-gray-600">Let&apos;s set up your business profile</p>
         </div>
 
         {/* Progress Bar */}

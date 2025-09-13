@@ -79,7 +79,7 @@ export default function PlanPage() {
               </button>
               
               <p className="text-sm text-gray-500 mt-4">
-                This may take a few moments. If AI is unavailable, we'll use a template.
+                This may take a few moments. If AI is unavailable, we&apos;ll use a template.
               </p>
             </div>
           </div>

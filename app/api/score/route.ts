@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 // Mock scoring function - will be replaced with actual implementation
 function computeEligibility(input: {
@@ -28,7 +28,7 @@ function computeEligibility(input: {
   return Math.round(Math.max(0, Math.min(1, raw)) * 100);
 }
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     // TODO: Add authentication check
     // TODO: Get user's business data from Supabase
