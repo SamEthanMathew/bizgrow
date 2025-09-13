@@ -25,9 +25,38 @@ export default function SalesLogPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: Connect to backend API
-    alert("Sales log submitted! (Backend integration pending)");
-    router.push("/quests");
+    // Get previous progress from localStorage
+    let prevProgress = { points: 0, coins: 0, level: 1, unlockedQuests: ["basics_form", "sales_log"] };
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("userProgress");
+      if (stored) {
+        prevProgress = JSON.parse(stored);
+      }
+    }
+    // Send form data and previous progress to backend API
+    fetch("/api/sales-log", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...formData, prevProgress }),
+    })
+      .then(async (res) => {
+        const result = await res.json();
+        if (result.success) {
+          // Store progress info in localStorage
+          if (typeof window !== "undefined") {
+            localStorage.setItem("userProgress", JSON.stringify(result.progress));
+          }
+          console.log("Sales log submitted successfully:", result.data);
+          router.push("/quests");
+        } else {
+          alert("Error: " + result.message);
+        }
+      })
+      .catch((err) => {
+        alert("Submission failed: " + err);
+      });
   };
 
   return (

@@ -9,12 +9,17 @@ export default function QuestsPage() {
 
   // Load progress from localStorage on mount
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("userProgress");
-      if (stored) {
-        setProgress(JSON.parse(stored));
+    const handleVisibility = () => {
+      if (typeof window !== "undefined") {
+        const stored = localStorage.getItem("userProgress");
+        if (stored) {
+          setProgress(JSON.parse(stored));
+        }
       }
-    }
+    };
+    handleVisibility();
+    window.addEventListener("visibilitychange", handleVisibility);
+    return () => window.removeEventListener("visibilitychange", handleVisibility);
   }, []);
 
   const getStatusColor = (status: string) => {
@@ -38,12 +43,16 @@ export default function QuestsPage() {
   };
 
   // Add status to quests for display
-  const questsWithStatus = mockQuests.map((quest) => {
-    let status = "locked";
-    if (progress.unlockedQuests.includes(quest.key)) {
-      status = "available";
+  // Determine quest statuses: completed, available, locked
+  let unlockedKeys = progress.unlockedQuests;
+  let questsWithStatus = mockQuests.map((quest, idx) => {
+    if (idx < unlockedKeys.length - 1) {
+      return { ...quest, status: "completed" };
+    } else if (idx === unlockedKeys.length - 1) {
+      return { ...quest, status: "available" };
+    } else {
+      return { ...quest, status: "locked" };
     }
-    return { ...quest, status };
   });
 
   return (
@@ -77,13 +86,13 @@ export default function QuestsPage() {
       {/* Quests Grid */}
       <div className="container mx-auto px-4 py-12">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {questsWithStatus.map((quest) => (
+          {questsWithStatus.map((quest, idx) => (
             <div
               key={quest.id}
-              className={`backdrop-blur-sm rounded-2xl shadow-xl p-8 border-2 transition-all duration-300 cursor-pointer ${
-                quest.status === "locked" 
-                  ? "opacity-60 cursor-not-allowed" 
-                  : "hover:shadow-2xl hover:-translate-y-2"
+              className={`backdrop-blur-sm rounded-2xl shadow-xl p-8 border-2 transition-all duration-300 ${
+                quest.status !== "locked"
+                  ? "cursor-pointer hover:shadow-2xl hover:-translate-y-2"
+                  : "opacity-60 cursor-not-allowed"
               }`}
               style={{ 
                 backgroundColor: quest.status === "locked" ? '#eceae3' : '#f4f2ee',
@@ -92,11 +101,11 @@ export default function QuestsPage() {
               onClick={() => {
                 if (quest.status !== "locked") {
                   if (quest.key === "basics_form") {
-                    // Navigate to basics form page
                     window.location.href = "/basics-form";
-                  } else {
-                    setSelectedQuest(quest.id);
+                  } else if (quest.key === "sales_log") {
+                    window.location.href = "/sales_log";
                   }
+                  // Add more quest keys/routes as needed
                 }
               }}
             >
@@ -132,59 +141,7 @@ export default function QuestsPage() {
         </div>
       </div>
 
-      {/* Quest Detail Modal */}
-      {selectedQuest && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-          <div className="rounded-2xl max-w-lg w-full p-8 shadow-2xl border" style={{ backgroundColor: '#f4f2ee', borderColor: '#eceae3' }}>
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-2xl font-bold" style={{ color: '#153930' }}>Quest Details</h3>
-              <button
-                onClick={() => setSelectedQuest(null)}
-                className="text-2xl font-bold w-8 h-8 flex items-center justify-center rounded-full transition-colors"
-                style={{ color: '#737373' }}
-                onMouseEnter={(e) => { if (e.target instanceof HTMLElement) e.target.style.backgroundColor = '#eceae3'; }}
-                onMouseLeave={(e) => { if (e.target instanceof HTMLElement) e.target.style.backgroundColor = 'transparent'; }}
-              >
-                ✕
-              </button>
-            </div>
-            <div className="mb-8">
-              <div className="text-6xl mb-4">🎯</div>
-              <p className="text-lg leading-relaxed" style={{ color: '#545454' }}>
-                This is where the quest form would appear. The actual implementation 
-                would include specific forms for each quest type with interactive elements.
-              </p>
-            </div>
-            <div className="flex space-x-4">
-              <button
-                onClick={() => setSelectedQuest(null)}
-                className="flex-1 px-6 py-3 border-2 rounded-xl font-semibold transition-colors"
-                style={{ borderColor: '#737373', color: '#545454' }}
-                onMouseEnter={(e) => { if (e.target instanceof HTMLElement) e.target.style.backgroundColor = '#eceae3'; }}
-                onMouseLeave={(e) => { if (e.target instanceof HTMLElement) e.target.style.backgroundColor = 'transparent'; }}
-              >
-                Cancel
-              </button>
-              <button
-                onClick={() => {
-                  const quest = mockQuests.find(q => q.id === selectedQuest);
-                  if (quest?.key === "basics_form") {
-                    window.location.href = "/basics-form";
-                  } else {
-                    setSelectedQuest(null);
-                  }
-                }}
-                className="flex-1 px-6 py-3 text-white rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
-                style={{ backgroundColor: '#2d892c' }}
-                onMouseEnter={(e) => { if (e.target instanceof HTMLElement) e.target.style.backgroundColor = '#153930'; }}
-                onMouseLeave={(e) => { if (e.target instanceof HTMLElement) e.target.style.backgroundColor = '#2d892c'; }}
-              >
-                Start Quest
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Quest Detail Modal removed: now clicking an available quest goes directly to its form */}
     </div>
   );
 }

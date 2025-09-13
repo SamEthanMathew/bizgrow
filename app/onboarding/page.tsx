@@ -34,6 +34,10 @@ export default function OnboardingPage() {
     if (step < 3) {
       setStep(step + 1);
     } else {
+      // Reset user progress in localStorage
+      if (typeof window !== "undefined") {
+        localStorage.setItem("userProgress", JSON.stringify({ points: 0, coins: 0, level: 0, unlockedQuests: ["basics_form"] }));
+      }
       // TODO: Save user data and redirect to quests
       router.push("/quests");
     }
