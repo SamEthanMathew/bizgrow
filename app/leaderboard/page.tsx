@@ -1,18 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
-// Mock leaderboard data
-const mockLeaderboard = [
-  { id: 1, name: "Priya Sharma", village: "Village A", level: 4, levelName: "Builder", score: 85, xp: 320, businessType: "Tailoring" },
-  { id: 2, name: "Raj Kumar", village: "Village B", level: 3, levelName: "Starter", score: 72, xp: 280, businessType: "General Shop" },
-  { id: 3, name: "Sunita Devi", village: "Village A", level: 3, levelName: "Starter", score: 68, xp: 250, businessType: "Food Cart" },
-  { id: 4, name: "Amit Singh", village: "Village C", level: 2, levelName: "Planner", score: 55, xp: 180, businessType: "Mechanic" },
-  { id: 5, name: "Kavita Patel", village: "Village B", level: 2, levelName: "Planner", score: 48, xp: 150, businessType: "Handicraft" },
-  { id: 6, name: "Vikram Yadav", village: "Village A", level: 1, levelName: "Dreamer", score: 35, xp: 80, businessType: "Farming" },
-  { id: 7, name: "Meera Joshi", village: "Village C", level: 1, levelName: "Dreamer", score: 28, xp: 60, businessType: "Transport" },
-  { id: 8, name: "Suresh Gupta", village: "Village B", level: 0, levelName: "Dreamer", score: 15, xp: 20, businessType: "General Shop" }
-];
+import { mockLeaderboard } from "@/lib/data/mockData";
 
 export default function LeaderboardPage() {
   const [selectedVillage, setSelectedVillage] = useState("all");

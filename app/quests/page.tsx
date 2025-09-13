@@ -1,98 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
-// Mock quest data - will be replaced with API calls
-const QUESTS = [
-  {
-    id: 1,
-    key: "basics_form",
-    title: "Basics Form",
-    description: "Tell us about your business sector and revenue/expense ranges",
-    xp: 50,
-    coinReward: 10,
-    levelGate: 0,
-    status: "available", // available, in_progress, completed, locked
-    icon: "📝"
-  },
-  {
-    id: 2,
-    key: "sales_log",
-    title: "Sales Log",
-    description: "Enter 7 days of demo sales data",
-    xp: 70,
-    coinReward: 10,
-    levelGate: 1,
-    status: "locked",
-    icon: "📊"
-  },
-  {
-    id: 3,
-    key: "expense_log",
-    title: "Expense Log",
-    description: "Enter 7 days of demo expense data",
-    xp: 70,
-    coinReward: 10,
-    levelGate: 1,
-    status: "locked",
-    icon: "💰"
-  },
-  {
-    id: 4,
-    key: "shop_photo",
-    title: "Upload Shop Photo",
-    description: "Upload a photo of your shop or stall",
-    xp: 40,
-    coinReward: 5,
-    levelGate: 2,
-    status: "locked",
-    icon: "📸"
-  },
-  {
-    id: 5,
-    key: "reference_contact",
-    title: "Reference Contact",
-    description: "Provide phone number of supplier or community leader",
-    xp: 40,
-    coinReward: 5,
-    levelGate: 2,
-    status: "locked",
-    icon: "📞"
-  },
-  {
-    id: 6,
-    key: "inventory_count",
-    title: "Simple Inventory Count",
-    description: "Count and list your current inventory",
-    xp: 60,
-    coinReward: 10,
-    levelGate: 3,
-    status: "locked",
-    icon: "📦"
-  },
-  {
-    id: 7,
-    key: "price_check",
-    title: "Price Check",
-    description: "Research 3 competitor prices for your products",
-    xp: 60,
-    coinReward: 10,
-    levelGate: 3,
-    status: "locked",
-    icon: "🔍"
-  },
-  {
-    id: 8,
-    key: "repayment_pledge",
-    title: "Repayment Pledge",
-    description: "Sign the repayment commitment agreement",
-    xp: 30,
-    coinReward: 5,
-    levelGate: 4,
-    status: "locked",
-    icon: "✍️"
-  }
-];
+import { mockQuests } from "@/lib/data/mockData";
 
 export default function QuestsPage() {
   const [selectedQuest, setSelectedQuest] = useState<number | null>(null);
@@ -116,6 +25,12 @@ export default function QuestsPage() {
       default: return "Unknown";
     }
   };
+
+  // Add status to quests for display
+  const questsWithStatus = mockQuests.map((quest, index) => ({
+    ...quest,
+    status: index === 0 ? "available" : "locked"
+  }));
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -148,7 +63,7 @@ export default function QuestsPage() {
       {/* Quests Grid */}
       <div className="container mx-auto px-4 py-8">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {QUESTS.map((quest) => (
+          {questsWithStatus.map((quest) => (
             <div
               key={quest.id}
               className={`bg-white rounded-xl shadow-lg p-6 border-2 transition-all cursor-pointer ${

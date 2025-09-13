@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { mockUser, mockScore } from "@/lib/data/mockData";
 
-// Mock data - will be replaced with API calls
+// Use mock data for static export
 const mockUserData = {
   level: 0,
   levelName: "Dreamer",
