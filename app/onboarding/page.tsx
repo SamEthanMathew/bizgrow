@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 const BUSINESS_TYPES = [
   { id: "shop", name: "General Shop", icon: "🏪" },
-  { id: "hotel", name: "Hotel", icon: "🏨" },
+  { id: "tailoring", name: "Tailoring", icon: "✂️" },
   { id: "food_cart", name: "Food Cart", icon: "🍜" },
   { id: "mechanic", name: "Mechanic", icon: "🔧" },
   { id: "farming", name: "Farming", icon: "🌾" },
@@ -49,8 +49,96 @@ export default function OnboardingPage() {
     }
   };
 
+  // Chatbot state
+  const [chatOpen, setChatOpen] = useState(false);
+  const [messages, setMessages] = useState<{ role: string; content: string }[]>([
+    { role: "assistant", content: "Hello! How can I help you today?" }
+  ]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  // Send message to backend API route
+  const sendMessage = async () => {
+    if (!input.trim()) return;
+    const newMessages = [...messages, { role: "user", content: input }];
+    setMessages(newMessages);
+    setInput("");
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/chatbot", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: newMessages.map(m => ({ role: m.role, content: m.content })) }),
+      });
+      const data = await res.json();
+      const reply = data.choices?.[0]?.message?.content || "Sorry, I couldn't get a response.";
+      setMessages([...newMessages, { role: "assistant", content: reply }]);
+    } catch (err) {
+      setMessages([...newMessages, { role: "assistant", content: "Error connecting to chatbot." }]);
+    }
+    setLoading(false);
+  };
+
   return (
-    <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #f4f2ee 0%, #eceae3 100%)' }}>
+    <div className="min-h-screen relative" style={{ background: 'linear-gradient(135deg, #f4f2ee 0%, #eceae3 100%)' }}>
+      {/* Chatbot Button */}
+      <button
+        onClick={() => setChatOpen(!chatOpen)}
+        className="fixed right-6 bottom-6 z-50 bg-green-700 hover:bg-green-800 text-white rounded-full shadow-lg px-5 py-4 flex items-center space-x-2"
+        style={{ transition: "background 0.2s" }}
+        aria-label="Open Chatbot"
+      >
+        <span className="text-xl">💬</span>
+        <span className="font-semibold hidden sm:inline">Chat</span>
+      </button>
+
+      {/* Chatbot Modal */}
+      {chatOpen && (
+        <div className="fixed right-6 bottom-24 z-50 w-80 max-w-full bg-white rounded-2xl shadow-2xl border border-green-700 flex flex-col">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-green-100 bg-green-700 rounded-t-2xl">
+            <span className="text-white font-bold">BizGrow Chatbot</span>
+            <button
+              onClick={() => setChatOpen(false)}
+              className="text-white hover:text-green-200 text-lg font-bold"
+              aria-label="Close Chatbot"
+            >
+              ×
+            </button>
+          </div>
+          <div className="flex-1 p-4 overflow-y-auto" style={{ maxHeight: "24rem" }}>
+            {messages.map((msg, idx) => (
+              <div key={idx} className={`mb-2 ${msg.role === "user" ? "text-right" : "text-left"}`}>
+                <span className={`inline-block px-3 py-2 rounded-lg ${msg.role === "user" ? "bg-green-100 text-green-900" : "bg-gray-100 text-gray-900"}`}>
+                  {msg.content}
+                </span>
+              </div>
+            ))}
+            {loading && <div className="text-gray-400 text-sm">Thinking...</div>}
+          </div>
+          <form
+            className="flex border-t border-green-100 p-2"
+            onSubmit={e => { e.preventDefault(); sendMessage(); }}
+          >
+            <input
+              type="text"
+              value={input}
+              onChange={e => setInput(e.target.value)}
+              className="flex-1 px-3 py-2 rounded-lg border border-green-300 focus:outline-none"
+              placeholder="Type your message..."
+              disabled={loading}
+            />
+            <button
+              type="submit"
+              className="ml-2 px-4 py-2 bg-green-700 text-white rounded-lg font-bold"
+              disabled={loading}
+            >
+              Send
+            </button>
+          </form>
+        </div>
+      )}
+
       <div className="container mx-auto px-4 py-12">
         {/* Header */}
         <div className="text-center mb-12">
@@ -60,7 +148,7 @@ export default function OnboardingPage() {
             </span>
           </div>
           <h1 className="text-5xl font-bold mb-4" style={{ color: '#153930' }}>Welcome to BizGrow</h1>
-          <p className="text-xl max-w-2xl mx-auto" style={{ color: '#545454' }}>Let&apos;s set up your business profile and start your journey to loan eligibility</p>
+          <p className="text-xl max-w-2xl mx-auto" style={{ color: '#545454' }}>Let's set up your business profile and start your journey to loan eligibility</p>
         </div>
 
         {/* Progress Bar */}
@@ -150,7 +238,7 @@ export default function OnboardingPage() {
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                   >
                     <option value="en">English</option>
-                    <option value="ch">Chinese (Mandarin)</option>
+                    <option value="zh">中文 (Chinese)</option>
                   </select>
                 </div>
               </div>
