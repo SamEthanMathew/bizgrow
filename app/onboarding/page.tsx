@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 const BUSINESS_TYPES = [
   { id: "shop", name: "General Shop", icon: "🏪" },
-  { id: "tailoring", name: "Tailoring", icon: "✂️" },
+  { id: "hotel", name: "Hotel", icon: "🏨" },
   { id: "food_cart", name: "Food Cart", icon: "🍜" },
   { id: "mechanic", name: "Mechanic", icon: "🔧" },
   { id: "farming", name: "Farming", icon: "🌾" },
