@@ -54,8 +54,8 @@ export default function HomePage() {
               🎮 Gamified Micro-Lending Platform
             </span>
           </div>
-          <h1 className="text-6xl md:text-7xl font-bold mb-8 leading-tight" style={{ color: '#153930' }}>
-            Turn Getting a Micro-Loan Into a{" "}
+          <h1 className="text-6xl md:text-5xl font-bold mb-8 leading-tight" style={{ color: '#153930' }}>
+            Tranforming Entrepreneurship into a{" "}
             <span style={{ color: '#2d892c' }}>Simple Game</span>
           </h1>
           <p className="text-xl md:text-2xl mb-12 leading-relaxed max-w-3xl mx-auto" style={{ color: '#545454' }}>

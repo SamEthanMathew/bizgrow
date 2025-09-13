@@ -7,7 +7,7 @@ const mockPendingQuests = [
   {
     id: 1,
     userId: "user1",
-    userName: "Priya Sharma",
+    userName: "Li Wei",
     questTitle: "Basics Form",
     submittedAt: "2024-01-15T10:30:00Z",
     evidenceUrl: "/evidence/basics-form.pdf",
@@ -16,7 +16,7 @@ const mockPendingQuests = [
   {
     id: 2,
     userId: "user2", 
-    userName: "Raj Kumar",
+    userName: "Wang Ming",
     questTitle: "Sales Log",
     submittedAt: "2024-01-15T09:15:00Z",
     evidenceUrl: "/evidence/sales-log.xlsx",
@@ -25,7 +25,7 @@ const mockPendingQuests = [
   {
     id: 3,
     userId: "user3",
-    userName: "Sunita Devi", 
+    userName: "Zhang Mei", 
     questTitle: "Shop Photo",
     submittedAt: "2024-01-14T16:45:00Z",
     evidenceUrl: "/evidence/shop-photo.jpg",
@@ -34,9 +34,9 @@ const mockPendingQuests = [
 ];
 
 const mockUsers = [
-  { id: "user1", name: "Priya Sharma", village: "Village A", level: 1, score: 45, completedQuests: 2 },
-  { id: "user2", name: "Raj Kumar", village: "Village B", level: 2, score: 68, completedQuests: 4 },
-  { id: "user3", name: "Sunita Devi", village: "Village A", level: 1, score: 38, completedQuests: 1 }
+  { id: "user1", name: "Li Wei", village: "Village A", level: 1, score: 45, completedQuests: 2 },
+  { id: "user2", name: "Wang Ming", village: "Village B", level: 2, score: 68, completedQuests: 4 },
+  { id: "user3", name: "Zhang Mei", village: "Village A", level: 1, score: 38, completedQuests: 1 }
 ];
 
 export default function AdminPage() {
