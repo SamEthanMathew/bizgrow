@@ -172,6 +172,13 @@ export default function QuestsPage() {
                 <div className="text-3xl font-bold text-white">{progress.coins}</div>
                 <div className="text-sm text-white font-semibold">Coins</div>
               </div>
+              <button
+                className="px-6 py-3 ml-4 text-white rounded-xl font-bold text-lg shadow-lg"
+                style={{ backgroundColor: '#2d892c' }}
+                onClick={() => window.location.href = "/"}
+              >
+                🏠 Home
+              </button>
             </div>
           </div>
         </div>
