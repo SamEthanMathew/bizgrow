@@ -1,10 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { mockQuests } from "@/lib/data/mockData";
 
 export default function QuestsPage() {
   const [selectedQuest, setSelectedQuest] = useState<number | null>(null);
+  const [progress, setProgress] = useState({ points: 0, coins: 0, level: 0, unlockedQuests: ["basics_form"] });
+
+  // Load progress from localStorage on mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("userProgress");
+      if (stored) {
+        setProgress(JSON.parse(stored));
+      }
+    }
+  }, []);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -27,10 +38,13 @@ export default function QuestsPage() {
   };
 
   // Add status to quests for display
-  const questsWithStatus = mockQuests.map((quest, index) => ({
-    ...quest,
-    status: index === 0 ? "available" : "locked"
-  }));
+  const questsWithStatus = mockQuests.map((quest) => {
+    let status = "locked";
+    if (progress.unlockedQuests.includes(quest.key)) {
+      status = "available";
+    }
+    return { ...quest, status };
+  });
 
   return (
     <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #f4f2ee 0%, #eceae3 100%)' }}>
@@ -44,15 +58,15 @@ export default function QuestsPage() {
             </div>
             <div className="flex items-center space-x-6">
               <div className="text-center p-4 rounded-2xl" style={{ backgroundColor: '#2d892c' }}>
-                <div className="text-3xl font-bold text-white">L0</div>
-                <div className="text-sm text-white font-semibold">Dreamer</div>
+                <div className="text-3xl font-bold text-white">L{progress.level}</div>
+                <div className="text-sm text-white font-semibold">{progress.level === 0 ? "Dreamer" : "Achiever"}</div>
               </div>
               <div className="text-center p-4 rounded-2xl" style={{ backgroundColor: '#737373' }}>
-                <div className="text-3xl font-bold text-white">0</div>
+                <div className="text-3xl font-bold text-white">{progress.points}</div>
                 <div className="text-sm text-white font-semibold">XP</div>
               </div>
               <div className="text-center p-4 rounded-2xl" style={{ backgroundColor: '#545454' }}>
-                <div className="text-3xl font-bold text-white">0</div>
+                <div className="text-3xl font-bold text-white">{progress.coins}</div>
                 <div className="text-sm text-white font-semibold">Coins</div>
               </div>
             </div>

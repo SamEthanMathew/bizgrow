@@ -53,9 +53,30 @@ export default function BasicsFormPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Save form data and redirect back to quests
-    console.log("Basics form submitted:", formData);
-    router.push("/quests");
+    // Send form data to backend API
+    fetch("/api/basics-form", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then(async (res) => {
+        const result = await res.json();
+        if (result.success) {
+          // Store progress info in localStorage
+          if (typeof window !== "undefined") {
+            localStorage.setItem("userProgress", JSON.stringify(result.progress));
+          }
+          console.log("Form submitted successfully:", result.data);
+          router.push("/quests");
+        } else {
+          alert("Error: " + result.message);
+        }
+      })
+      .catch((err) => {
+        alert("Submission failed: " + err);
+      });
   };
 
   const isFormValid = formData.businessSector && formData.monthlyRevenue && formData.monthlyExpenses;
