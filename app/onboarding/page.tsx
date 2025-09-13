@@ -31,7 +31,7 @@ export default function OnboardingPage() {
   };
 
   const handleNext = () => {
-    if (step < 3) {
+    if (step < 4) {
       setStep(step + 1);
     } else {
       // Reset user progress in localStorage
@@ -154,13 +154,13 @@ export default function OnboardingPage() {
         {/* Progress Bar */}
         <div className="max-w-lg mx-auto mb-12">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-lg font-semibold" style={{ color: '#545454' }}>Step {step} of 3</span>
-            <span className="text-lg font-semibold" style={{ color: '#2d892c' }}>{Math.round((step / 3) * 100)}%</span>
+            <span className="text-lg font-semibold" style={{ color: '#545454' }}>Step {step} of 4</span>
+            <span className="text-lg font-semibold" style={{ color: '#2d892c' }}>{Math.round((step / 4) * 100)}%</span>
           </div>
           <div className="w-full rounded-full h-3 shadow-inner" style={{ backgroundColor: '#eceae3' }}>
             <div 
               className="h-3 rounded-full transition-all duration-500 shadow-lg"
-              style={{ width: `${(step / 3) * 100}%`, backgroundColor: '#2d892c' }}
+              style={{ width: `${(step / 4) * 100}%`, backgroundColor: '#2d892c' }}
             />
           </div>
         </div>
@@ -272,6 +272,26 @@ export default function OnboardingPage() {
             </div>
           )}
 
+          {/* WeChat Pay Connection Step */}
+          {step === 4 && (
+            <div>
+              <h2 className="text-3xl font-bold mb-8" style={{ color: '#153930' }}>💳 Connect WeChat Pay</h2>
+              <p className="text-lg mb-8" style={{ color: '#545454' }}>Connect your WeChat Pay account to enable payments and receive funds directly in the app.</p>
+              <div className="flex flex-col items-center space-y-6">
+                <img src="/wechatpay-logo.png" alt="WeChat Pay" style={{ width: 80, height: 80 }} />
+                <input
+                  type="text"
+                  placeholder="Enter your WeChat Pay ID or scan QR code"
+                  className="w-full max-w-md px-4 py-3 border rounded-lg focus:ring-2 focus:border-transparent"
+                  style={{ borderColor: '#737373', color: '#153930' }}
+                />
+                <button className="px-8 py-4 text-white rounded-xl font-bold text-lg shadow-lg" style={{ backgroundColor: '#2d892c' }}>
+                  Connect WeChat Pay
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Navigation Buttons */}
           <div className="flex justify-between mt-12">
             <button
@@ -291,7 +311,7 @@ export default function OnboardingPage() {
               onMouseEnter={(e) => { if (e.target instanceof HTMLElement) e.target.style.backgroundColor = '#153930'; }}
               onMouseLeave={(e) => { if (e.target instanceof HTMLElement) e.target.style.backgroundColor = '#2d892c'; }}
             >
-              {step === 3 ? "🚀 Complete Setup" : "Next →"}
+              {step === 4 ? "🚀 Complete Setup" : "Next →"}
             </button>
           </div>
         </div>
