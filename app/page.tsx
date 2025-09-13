@@ -25,6 +25,15 @@ export default function HomePage() {
               Leaderboard
             </Link>
             <Link 
+              href="/shop" 
+              className="transition-colors font-medium"
+              style={{ color: '#545454' }}
+              onMouseEnter={(e) => e.target.style.color = '#2d892c'}
+              onMouseLeave={(e) => e.target.style.color = '#545454'}
+            >
+              Shop
+            </Link>
+            <Link 
               href="/onboarding" 
               className="text-white px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl font-semibold"
               style={{ background: 'linear-gradient(135deg, #2d892c 0%, #153930 100%)' }}

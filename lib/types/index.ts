@@ -71,6 +71,43 @@ export interface BusinessPlan {
   generatedAt: string;
 }
 
+// Shop types
+export interface ShopItem {
+  id: number;
+  title: string;
+  description: string;
+  coin_price: number;
+  is_active: boolean;
+  category?: string;
+  icon?: string;
+  gradient?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ShopPurchase {
+  id: number;
+  user_id: string;
+  item_id: number;
+  coins_spent: number;
+  created_at: string;
+}
+
+export interface ShopResponse {
+  user_balance: number;
+  items: ShopItem[];
+}
+
+export interface PurchaseResponse {
+  success: boolean;
+  purchase_id?: number;
+  item?: ShopItem;
+  new_balance?: number;
+  error?: string;
+  required?: number;
+  available?: number;
+}
+
 // API response types
 export interface ApiResponse<T> {
   success: boolean;
