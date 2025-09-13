@@ -46,43 +46,49 @@ export default function OnboardingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #f4f2ee 0%, #eceae3 100%)' }}>
+      <div className="container mx-auto px-4 py-12">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome to BizGrow</h1>
-          <p className="text-gray-600">Let&apos;s set up your business profile</p>
+        <div className="text-center mb-12">
+          <div className="mb-6">
+            <span className="inline-block px-4 py-2 rounded-full text-sm font-semibold" style={{ backgroundColor: '#2d892c', color: 'white' }}>
+              🚀 Getting Started
+            </span>
+          </div>
+          <h1 className="text-5xl font-bold mb-4" style={{ color: '#153930' }}>Welcome to BizGrow</h1>
+          <p className="text-xl max-w-2xl mx-auto" style={{ color: '#545454' }}>Let&apos;s set up your business profile and start your journey to loan eligibility</p>
         </div>
 
         {/* Progress Bar */}
-        <div className="max-w-md mx-auto mb-8">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-sm text-gray-600">Step {step} of 3</span>
-            <span className="text-sm text-gray-600">{Math.round((step / 3) * 100)}%</span>
+        <div className="max-w-lg mx-auto mb-12">
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-lg font-semibold" style={{ color: '#545454' }}>Step {step} of 3</span>
+            <span className="text-lg font-semibold" style={{ color: '#2d892c' }}>{Math.round((step / 3) * 100)}%</span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
+          <div className="w-full rounded-full h-3 shadow-inner" style={{ backgroundColor: '#eceae3' }}>
             <div 
-              className="bg-indigo-600 h-2 rounded-full transition-all duration-300"
-              style={{ width: `${(step / 3) * 100}%` }}
+              className="h-3 rounded-full transition-all duration-500 shadow-lg"
+              style={{ width: `${(step / 3) * 100}%`, backgroundColor: '#2d892c' }}
             />
           </div>
         </div>
 
         {/* Form Steps */}
-        <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8">
+        <div className="max-w-3xl mx-auto backdrop-blur-sm rounded-2xl shadow-2xl p-10 border" style={{ backgroundColor: '#f4f2ee', borderColor: '#eceae3' }}>
           {step === 1 && (
             <div>
-              <h2 className="text-2xl font-semibold mb-6">Personal Information</h2>
+              <h2 className="text-3xl font-bold mb-8" style={{ color: '#153930' }}>👤 Personal Information</h2>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium mb-2" style={{ color: '#545454' }}>
                     Full Name
                   </label>
                   <input
                     type="text"
                     value={formData.name}
                     onChange={(e) => handleInputChange("name", e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:border-transparent"
+                    style={{ borderColor: '#737373', color: '#153930' }}
                     placeholder="Enter your full name"
                   />
                 </div>
@@ -116,7 +122,7 @@ export default function OnboardingPage() {
 
           {step === 2 && (
             <div>
-              <h2 className="text-2xl font-semibold mb-6">Location & Language</h2>
+              <h2 className="text-3xl font-bold mb-8" style={{ color: '#153930' }}>🌍 Location & Language</h2>
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -152,21 +158,25 @@ export default function OnboardingPage() {
 
           {step === 3 && (
             <div>
-              <h2 className="text-2xl font-semibold mb-6">Business Type</h2>
-              <p className="text-gray-600 mb-6">What type of business are you planning to start or already running?</p>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <h2 className="text-3xl font-bold mb-4" style={{ color: '#153930' }}>💼 Business Type</h2>
+              <p className="text-lg mb-8" style={{ color: '#545454' }}>What type of business are you planning to start or already running?</p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 {BUSINESS_TYPES.map((type) => (
                   <button
                     key={type.id}
                     onClick={() => handleInputChange("businessType", type.id)}
-                    className={`p-4 border-2 rounded-lg text-center transition-all ${
+                    className={`p-6 border-2 rounded-2xl text-center transition-all duration-300 transform hover:-translate-y-1 ${
                       formData.businessType === type.id
-                        ? "border-indigo-500 bg-indigo-50"
-                        : "border-gray-200 hover:border-gray-300"
+                        ? "shadow-lg"
+                        : "hover:shadow-md"
                     }`}
+                    style={{
+                      borderColor: formData.businessType === type.id ? '#2d892c' : '#737373',
+                      backgroundColor: formData.businessType === type.id ? '#f4f2ee' : '#eceae3'
+                    }}
                   >
-                    <div className="text-3xl mb-2">{type.icon}</div>
-                    <div className="text-sm font-medium">{type.name}</div>
+                    <div className="text-4xl mb-3">{type.icon}</div>
+                    <div className="text-sm font-bold" style={{ color: '#153930' }}>{type.name}</div>
                   </button>
                 ))}
               </div>
@@ -174,19 +184,25 @@ export default function OnboardingPage() {
           )}
 
           {/* Navigation Buttons */}
-          <div className="flex justify-between mt-8">
+          <div className="flex justify-between mt-12">
             <button
               onClick={handleBack}
               disabled={step === 1}
-              className="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-8 py-4 border-2 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed font-semibold text-lg transition-all duration-300"
+              style={{ borderColor: '#737373', color: '#545454' }}
+              onMouseEnter={(e) => { if (e.target instanceof HTMLElement) e.target.style.backgroundColor = '#eceae3'; }}
+              onMouseLeave={(e) => { if (e.target instanceof HTMLElement) e.target.style.backgroundColor = 'transparent'; }}
             >
-              Back
+              ← Back
             </button>
             <button
               onClick={handleNext}
-              className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+              className="px-8 py-4 text-white rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl font-bold text-lg transform hover:-translate-y-1"
+              style={{ backgroundColor: '#2d892c' }}
+              onMouseEnter={(e) => { if (e.target instanceof HTMLElement) e.target.style.backgroundColor = '#153930'; }}
+              onMouseLeave={(e) => { if (e.target instanceof HTMLElement) e.target.style.backgroundColor = '#2d892c'; }}
             >
-              {step === 3 ? "Complete Setup" : "Next"}
+              {step === 3 ? "🚀 Complete Setup" : "Next →"}
             </button>
           </div>
         </div>
