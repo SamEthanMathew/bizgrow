@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { mockUser, mockScore } from "@/lib/data/mockData";
+// import { mockUser, mockScore } from "@/lib/data/mockData";
 
 // Use mock data for static export
 const mockUserData = {

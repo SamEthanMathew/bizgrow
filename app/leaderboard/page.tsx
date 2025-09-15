@@ -17,17 +17,17 @@ export default function LeaderboardPage() {
     return villageMatch && levelMatch;
   });
 
-  const getLevelColor = (level: number) => {
-    const colors = [
-      "bg-gray-500", // Dreamer
-      "bg-blue-500", // Planner
-      "bg-green-500", // Starter
-      "bg-yellow-500", // Builder
-      "bg-purple-500", // Seller
-      "bg-indigo-500" // Loan-Ready
-    ];
-    return colors[level] || "bg-gray-500";
-  };
+  // const getLevelColor = (level: number) => {
+  //   const colors = [
+  //     "bg-gray-500", // Dreamer
+  //     "bg-blue-500", // Planner
+  //     "bg-green-500", // Starter
+  //     "bg-yellow-500", // Builder
+  //     "bg-purple-500", // Seller
+  //     "bg-indigo-500" // Loan-Ready
+  //   ];
+  //   return colors[level] || "bg-gray-500";
+  // };
 
   const getRankIcon = (index: number) => {
     if (index === 0) return "🥇";

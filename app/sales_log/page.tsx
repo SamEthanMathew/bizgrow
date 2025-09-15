@@ -19,11 +19,11 @@ export default function SalesLogPage() {
     retainedEarnings: "",
   });
 
-  const handleInputChange = (field, value) => {
+  const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Get previous progress from localStorage
     let prevProgress = { points: 0, coins: 0, level: 1, unlockedQuests: ["basics_form", "sales_log"] };

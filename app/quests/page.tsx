@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { mockQuests } from "@/lib/data/mockData";
 
 export default function QuestsPage() {
-  const [selectedQuest, setSelectedQuest] = useState<number | null>(null);
+  // const [selectedQuest, setSelectedQuest] = useState<number | null>(null);
   const [progress, setProgress] = useState({ points: 0, coins: 0, level: 0, unlockedQuests: ["basics_form"] });
 
   // Chatbot state
@@ -47,7 +47,7 @@ export default function QuestsPage() {
       const data = await res.json();
       const reply = data.choices?.[0]?.message?.content || "Sorry, I couldn't get a response.";
       setMessages([...newMessages, { role: "assistant", content: reply }]);
-    } catch (err) {
+    } catch {
       setMessages([...newMessages, { role: "assistant", content: "Error connecting to chatbot." }]);
     }
     setLoading(false);
@@ -75,8 +75,8 @@ export default function QuestsPage() {
 
   // Add status to quests for display
   // Determine quest statuses: completed, available, locked
-  let unlockedKeys = progress.unlockedQuests;
-  let questsWithStatus = mockQuests.map((quest, idx) => {
+  const unlockedKeys = progress.unlockedQuests;
+  const questsWithStatus = mockQuests.map((quest, idx) => {
     if (idx < unlockedKeys.length - 1) {
       return { ...quest, status: "completed" };
     } else if (idx === unlockedKeys.length - 1) {
@@ -187,7 +187,7 @@ export default function QuestsPage() {
       {/* Quests Grid */}
       <div className="container mx-auto px-4 py-12">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {questsWithStatus.map((quest, idx) => (
+          {questsWithStatus.map((quest) => (
             <div
               key={quest.id}
               className={`backdrop-blur-sm rounded-2xl shadow-xl p-8 border-2 transition-all duration-300 ${

@@ -74,7 +74,7 @@ export default function OnboardingPage() {
       const data = await res.json();
       const reply = data.choices?.[0]?.message?.content || "Sorry, I couldn't get a response.";
       setMessages([...newMessages, { role: "assistant", content: reply }]);
-    } catch (err) {
+    } catch {
       setMessages([...newMessages, { role: "assistant", content: "Error connecting to chatbot." }]);
     }
     setLoading(false);
@@ -148,7 +148,7 @@ export default function OnboardingPage() {
             </span>
           </div>
           <h1 className="text-5xl font-bold mb-4" style={{ color: '#153930' }}>Welcome to BizGrow</h1>
-          <p className="text-xl max-w-2xl mx-auto" style={{ color: '#545454' }}>Let's set up your business profile and start your journey to loan eligibility</p>
+          <p className="text-xl max-w-2xl mx-auto" style={{ color: '#545454' }}>Let&apos;s set up your business profile and start your journey to loan eligibility</p>
         </div>
 
         {/* Progress Bar */}
@@ -278,6 +278,7 @@ export default function OnboardingPage() {
               <h2 className="text-3xl font-bold mb-8" style={{ color: '#153930' }}>💳 Connect WeChat Pay</h2>
               <p className="text-lg mb-8" style={{ color: '#545454' }}>Connect your WeChat Pay account to enable payments and receive funds directly in the app.</p>
               <div className="flex flex-col items-center space-y-6">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/wechatpay-logo.png" alt="WeChat Pay" style={{ width: 80, height: 80 }} />
                 <input
                   type="text"

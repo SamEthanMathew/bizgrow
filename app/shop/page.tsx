@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ShopItem, ShopResponse, PurchaseResponse } from "@/lib/types";
+import { ShopResponse } from "@/lib/types";
 import { ShopItemWithCategory, mockShopItems } from "@/lib/data/shopMockData";
 
 export default function ShopPage() {
@@ -35,7 +35,8 @@ export default function ShopPage() {
       localStorage.setItem('userBizCoins', '100');
     }
     fetchShopData();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [retryCount]);
 
   const fetchShopData = async () => {
     try {
@@ -313,12 +314,12 @@ export default function ShopPage() {
                     color: 'white'
                   }}
                   onMouseEnter={(e) => {
-                    if (e.target instanceof HTMLElement && !e.target.disabled) {
+                    if (e.target instanceof HTMLButtonElement && !e.target.disabled) {
                       e.target.style.backgroundColor = '#153930';
                     }
                   }}
                   onMouseLeave={(e) => {
-                    if (e.target instanceof HTMLElement && !e.target.disabled) {
+                    if (e.target instanceof HTMLButtonElement && !e.target.disabled) {
                       e.target.style.backgroundColor = '#2d892c';
                     }
                   }}

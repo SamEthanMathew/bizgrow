@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/client';
 import { ShopResponse } from '@/lib/types';
-import { mockShopResponse, mockShopItems } from '@/lib/data/shopMockData';
+import { mockShopItems } from '@/lib/data/shopMockData';
 
 export async function GET() {
   try {
